@@ -1,6 +1,27 @@
+{% extends 'polls/base.html' %}
+
 {% block content %}
+
     {% for poll in polls %}
+        <h1>{{ poll.title }}</h1>
+        <p>Дата начала: {{ poll.datetime_start }}</p>
+        <p>Дата окончания: {{ poll.datetime_end }}</p>
+        <p>{{ poll.description }}</p>
+        <br>
+
+        {% for choice_question in poll.choice_questions.all %}
+            <h3>Вопрос с выбором {{ forloop.counter }}:</h3>
+            <h4><a href="{% url 'choice_question' choice_question.pk %}">{{ choice_question.text }}</a></h4>
+        {% endfor %}
+        <br>
+
+        {% for text_question in poll.text_questions.all %}
+            <h3>Вопрос с текстовым ответом {{ forloop.counter }}:</h3>
+            <h4><a href="{% url 'text_question' text_question.pk %}">{{ text_question.text }}</a></h4>
+        {% endfor %}
+
     {% empty %}
     <h1>Тут пока что нет ни одного опроса</h1>
     {% endfor %}
+
 {% endblock content %}

@@ -1,0 +1,16 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+
+<h2>{{ text_question.text }}</h2>
+
+<form action="" method="post">
+    {% csrf_token %}
+
+    <label for="text_answer">
+        <input type="text" name="text_answer" placeholder="Введите ответ">
+    </label>
+    <input type="submit" value="Ответить">
+</form>
+
+{% endblock content %}
