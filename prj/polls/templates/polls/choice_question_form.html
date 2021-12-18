@@ -1,1 +1,33 @@
-Choice
+{% extends 'polls/base.html' %}
+
+{% block content %}
+
+<h2>{{ choice_question.text }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% if choice_question.multiple %}
+
+        {% for answer in choice_question.choice_answers.all %}
+            <input type="checkbox" id="{{ answer.pk }}"
+                   name="choice_answer" value="{{ answer.pk }}">
+            <label for="{{ answer.pk }}">{{ answer.text }}</label>
+            <br>
+        {% endfor %}
+
+    {% else %}
+        <label for="choice_answer">Выберите вариант ответа:
+            <select name="choice_answer">
+                {% for answer in choice_question.choice_answers.all %}
+                    <option value="{{ answer.pk }}">{{ answer.text }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <br>
+    {% endif %}
+    <br>
+    <input type="submit" value="Ответить">
+</form>
+
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends 'polls/base.html' %}
+
+{% block content %}
+{% if not choice_answers and not text_answers %}
+    <h1>Вы не участвовали ни в одном опросе</h1>
+{% endif %}
+    {% for answer in choice_answers %}
+        <h1> Опрос: {{ answer.question.poll.title }}</h1>
+        <h3>Вопрос: {{ answer.question.text }}</h3>
+        <h4>Ваш ответ: {{ answer.text }}</h4>
+    {% endfor %}
+
+    {% for answer in text_answers %}
+        <h1> Опрос: {{ answer.question.poll.title }}</h1>
+        <h3>Вопрос: {{ answer.question.text }}</h3>
+        <h4>Ваш ответ: {{ answer.text }}</h4>
+    {% endfor %}
+
+{% endblock content %}

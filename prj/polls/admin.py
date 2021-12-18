@@ -40,6 +40,8 @@ class ChoiceQuestionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(TextQuestion)
+admin.site.register(ChoiceAnswer)
+admin.site.register(TextAnswer)
 
 admin.site.unregister(Group)
 # admin.site.unregister(User)

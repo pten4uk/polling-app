@@ -8,7 +8,19 @@
     <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
+
+{% if user.is_authenticated %}
+    <h2>Вы вошли как: {{ user.username }}</h2>
+    <a href="{% url 'user_polls' %}">Мои опросы</a>
+    <a href="{% url 'poll_list' %}">Активные опросы</a>
+{% endif %}
+{% if user.is_superuser %}
+    <a href="/admin">Панель администратора</a>
+{% endif %}
+
+
 {% block content %}
 {% endblock content %}
+
 </body>
 </html>

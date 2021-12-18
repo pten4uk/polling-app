@@ -19,7 +19,6 @@ class Poll(models.Model):
 class ChoiceQuestion(models.Model):
     text = models.CharField(max_length=256)
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='choice_questions')
-    choices = models.ManyToManyField('ChoiceAnswer')
     multiple = models.BooleanField(default=False)
 
     def __str__(self):
@@ -29,19 +28,24 @@ class ChoiceQuestion(models.Model):
 class TextQuestion(models.Model):
     text = models.CharField(max_length=256)
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE, related_name='text_questions')
-    answers = models.ManyToManyField('TextAnswer')
 
     def __str__(self):
         return f'{self.text}'
 
 
 class TextAnswer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    question = models.ForeignKey(TextQuestion, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='text_answers')
+    question = models.ForeignKey(TextQuestion, on_delete=models.CASCADE, related_name='text_answers')
     text = models.TextField()
+
+    def __str__(self):
+        return f'{self.text}'
 
 
 class ChoiceAnswer(models.Model):
-    users = models.ManyToManyField(User)
-    question = models.ForeignKey(ChoiceQuestion, on_delete=models.CASCADE)
+    users = models.ManyToManyField(User, blank=True, related_name='choice_answers')
+    question = models.ForeignKey(ChoiceQuestion, on_delete=models.CASCADE, related_name='choice_answers')
     text = models.CharField(max_length=128)
+
+    def __str__(self):
+        return f'{self.text}'
