@@ -41,9 +41,36 @@ class TextAnswerCreateSerializer(serializers.ModelSerializer):
         ]
 
 
-class ChoiceAnswerCreateSerializer(serializers.ModelSerializer):
+class ChoiceAnswerUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChoiceAnswer
         fields = [
             'users'
         ]
+
+
+class CompletedPollsSerializer(serializers.BaseSerializer):
+    def add_answers_to_dict(self, data, answers_list, dict_key):
+        for answer in answers_list:
+            data[dict_key].append(
+                {
+                    'poll': answer.question.poll.title,
+                    'question': answer.question.text,
+                    'answer': answer.text
+                }
+            )
+
+    def to_representation(self, user):
+        choice_answers = user.choice_answers.all()
+        text_answers = user.text_answers.all()
+
+        data = {
+            'user': user.pk,
+            'choice_answers': [],
+            'text_answers': []
+        }
+
+        self.add_answers_to_dict(data, choice_answers, 'choice_answers')
+        self.add_answers_to_dict(data, text_answers, 'text_answers')
+
+        return data
