@@ -26,7 +26,9 @@ class GetActivePollsView(ListAPIView):
     queryset = Poll.objects.all()
 
 
-class GetCompletedPolls(APIView):
+class GetCompletedPollsView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
         serializer = CompletedPollsSerializer(request.user)
         return Response(serializer.data)
@@ -41,7 +43,7 @@ class CreateTextAnswerView(CreateAPIView):
         serializer.save(user=self.request.user)
 
 
-class UpdateChoiceAnswerView(UpdateAPIView):
+class AddUserToChoiceAnswerView(UpdateAPIView):
     serializer_class = ChoiceAnswerUpdateSerializer
     queryset = ChoiceAnswer.objects.all()
     permission_classes = [IsAuthenticated]
