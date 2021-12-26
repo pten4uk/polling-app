@@ -126,8 +126,10 @@ GET - http://127.0.0.1:8000/api/get/completed_polls/
 }
  ```
  - response
+ ```json
  Созданный объект
- <p> POST - http://127.0.0.1:8000/api/create/choice_question/ </p>
+ ```
+ POST - http://127.0.0.1:8000/api/create/choice_question/
  - request
  ```json
  {
@@ -140,4 +142,98 @@ GET - http://127.0.0.1:8000/api/get/completed_polls/
         ""
     ]
 }
- ```
+```
+- response
+```json
+{
+    "status": "201 Created"
+}
+```
+POST - http://127.0.0.1:8000/api/create/text_question/
+- request
+```json
+{
+    "text": "",
+    "poll": <number>
+}
+```
+- response
+```json
+Созданный объект
+```
+POST - http://127.0.0.1:8000/api/create/text_answer/
+- request
+```json
+{
+    "question": <number>,
+    "text": ""
+}
+```
+- response
+```json
+Созданный объект
+```
+PUT, PATCH - http://127.0.0.1:8000/api/update/poll/<<number:poll_id>>
+- request
+```json
+ {
+    "title": "",
+    "datetime_end": "<YYYY-MM-DDTHH:MM>",
+    "description": ""
+}
+```
+- response
+```json
+Отредактированные поля
+```
+PUT, PATCH - http://127.0.0.1:8000/api/update/choice_answer/<<number:answer_id>>
+- request
+```json
+{
+    "text": ""
+}
+```
+- response
+```json
+Отредактированные поля
+```
+PATCH - http://127.0.0.1:8000/api/update/text_question/<<number:question_id>>
+- request
+```json
+{
+    "text": "",
+    "poll": <number>
+}
+```
+- response
+```json
+Отредактированные поля
+```
+PATCH - http://127.0.0.1:8000/api/update/choice_answer/<<number:answer_id>>/add_user
+- request
+```json
+{
+    "users": [
+        <number>
+    ]
+}
+```
+- response
+```json
+Отредактированные поля
+```
+PATCH - http://127.0.0.1:8000/api/delete/poll/<<number:poll_id>>
+- request
+```json
+{}
+```
+PATCH - http://127.0.0.1:8000/api/delete/choice_answer/<<number:answer_id>>
+- request
+```json
+{}
+```
+PATCH - http://127.0.0.1:8000/api/delete/text_question/<<number:question_id>>
+- request
+```json
+{}
+```
