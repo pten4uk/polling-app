@@ -2,7 +2,7 @@
 
 Приложение предоставляет API для прохождения опросов.
 
-##Quickstart
+## Quickstart
 1. Из папки проекта: /polling-app устанавливаем виртуальное окружение:
 ```cmd
 python -m venv venv
@@ -38,7 +38,7 @@ python manage.py runserver
  - После этого вам будут доступны все активные опросы, которые можно пройти.
  - На этой странице есть также ссылка на пройденные опросы.
  
- ##Документация API
+ ## Документация API
  POST - http://127.0.0.1:8000/api/auth/token/login
  - request
     ```json
@@ -53,3 +53,91 @@ python manage.py runserver
         "auth_token": ""
     }
     ```
+    После авторизации каждый запрос нужно делать с заголовком Authorization:
+    ```json
+    {
+        "Authorization": "Token <auth_token>"
+    }
+    ```
+ POST - http://127.0.0.1:8000/api/auth/token/logout
+ 
+ GET - http://127.0.0.1:8000/api/get/active_polls/
+ - request
+ ```json
+ {}
+ ```
+ - response
+ ```json
+ [
+    {
+        "title": "",
+        "datetime_start": "",
+        "datetime_end": "",
+        "description": "",
+        "text_questions": [
+            {
+                "pk": <number>,
+                "text": ""
+            }
+        ],
+        "choice_questions": [
+            {
+                "pk": <number>,
+                "text": "",
+                "multiple": <boolean>
+            }
+        ]
+    }
+]
+```
+GET - http://127.0.0.1:8000/api/get/completed_polls/
+- request
+```json
+{}
+```
+-response
+```json
+{
+    "user": <number>,
+    "choice_answers": [
+        {
+            "poll": <number>,
+            "question": <number>,
+            "answer": ""
+        }
+    ],
+    "text_answers": [
+        {
+            "poll": <number>,
+            "question": <number>,
+            "answer": ""
+        }
+    ]
+}
+```
+ POST - http://127.0.0.1:8000/api/create/poll/
+ - request
+ ```json
+ {
+    "title": "",
+    "datetime_start": "<YYYY-MM-DDTHH:MM>",
+    "datetime_end": "<YYYY-MM-DDTHH:MM>",
+    "description": ""
+}
+ ```
+ - response
+ Созданный объект
+ <p> POST - http://127.0.0.1:8000/api/create/choice_question/ </p>
+ - request
+ ```json
+ {
+    "poll": "<number>",
+    "text": "",
+    "multiple": <boolean>,
+    "choice_answers": [
+        "",
+        "",
+        ""
+    ]
+}
+ ```
