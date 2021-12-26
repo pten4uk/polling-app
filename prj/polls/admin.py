@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+from rest_framework.authtoken.admin import TokenAdmin
+from rest_framework.authtoken.models import TokenProxy
 
 from .models import *
 
@@ -41,7 +43,7 @@ class ChoiceQuestionAdmin(admin.ModelAdmin):
 
 admin.site.register(TextQuestion)
 admin.site.register(ChoiceAnswer)
-admin.site.register(TextAnswer)
 
 admin.site.unregister(Group)
-# admin.site.unregister(User)
+admin.site.unregister(User)
+admin.site.unregister(TokenProxy)

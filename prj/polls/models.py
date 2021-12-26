@@ -15,6 +15,10 @@ class Poll(models.Model):
     def __str__(self):
         return f'{self.title}'
 
+    class Meta:
+        verbose_name = 'Опрос'
+        verbose_name_plural = 'Опросы'
+
 
 class ChoiceQuestion(models.Model):
     text = models.CharField(max_length=256)
@@ -24,6 +28,10 @@ class ChoiceQuestion(models.Model):
     def __str__(self):
         return f'{self.text}'
 
+    class Meta:
+        verbose_name = 'Вопрос с выбором варианта'
+        verbose_name_plural = 'Вопросы с выбором варианта'
+
 
 class TextQuestion(models.Model):
     text = models.CharField(max_length=256)
@@ -31,6 +39,10 @@ class TextQuestion(models.Model):
 
     def __str__(self):
         return f'{self.text}'
+
+    class Meta:
+        verbose_name = 'Текстовый вопрос'
+        verbose_name_plural = 'Текстовые вопросы'
 
 
 class TextAnswer(models.Model):
@@ -41,6 +53,10 @@ class TextAnswer(models.Model):
     def __str__(self):
         return f'{self.text}'
 
+    class Meta:
+        verbose_name = 'Текстовый ответ'
+        verbose_name_plural = 'Текстовые ответы'
+
 
 class ChoiceAnswer(models.Model):
     users = models.ManyToManyField(User, blank=True, related_name='choice_answers')
@@ -49,3 +65,7 @@ class ChoiceAnswer(models.Model):
 
     def __str__(self):
         return f'{self.text}'
+
+    class Meta:
+        verbose_name = 'Ответ с выбором'
+        verbose_name_plural = 'Ответ с выбором'

@@ -45,7 +45,7 @@ class CreateChoiceQuestionView(APIView):
 
     def post(self, request):
         serializer = ChoiceQuestionSerializer(data=request.data)
-        serializer.is_valid()
+        serializer.is_valid(raise_exception=True)
         return Response(
             data={"status": "201 Created"},
             status=201

@@ -4,16 +4,16 @@ from .admin.views import *
 from .user.views import *
 
 urlpatterns = [
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),
+    path('auth/', include('djoser.urls')),  # POST
+    path('auth/', include('djoser.urls.authtoken')),  # POST
 
     path('get/active_polls/', GetActivePollsView.as_view()),  # GET
     path('get/completed_polls/', GetCompletedPollsView.as_view()),  # GET
 
-    path('create/poll/', CreatePollView.as_view()),  # CREATE
-    path('create/choice_question/', CreateChoiceQuestionView.as_view()),  # CREATE
-    path('create/text_question/', CreateTextQuestionView.as_view()),  # CREATE
-    path('create/text_answer/', CreateTextAnswerView.as_view()),  # CREATE
+    path('create/poll/', CreatePollView.as_view()),  # POST
+    path('create/choice_question/', CreateChoiceQuestionView.as_view()),  # POST
+    path('create/text_question/', CreateTextQuestionView.as_view()),  # POST
+    path('create/text_answer/', CreateTextAnswerView.as_view()),  # POST
 
     path('update/poll/<int:pk>', UpdatePollView.as_view()),  # PUT, PATCH
     path('update/choice_answer/<int:pk>', UpdateChoiceAnswerView.as_view()),  # PUT, PATCH

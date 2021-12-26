@@ -48,14 +48,19 @@ class ChoiceAnswerUpdateSerializer(serializers.ModelSerializer):
             'users'
         ]
 
+    def validate(self, data):
+        if data:
+            return data
+        raise serializers.ValidationError({"users": ["Обязательное поле"]})
+
 
 class CompletedPollsSerializer(serializers.BaseSerializer):
     def add_answers_to_dict(self, data, answers_list, dict_key):
         for answer in answers_list:
             data[dict_key].append(
                 {
-                    'poll': answer.question.poll.title,
-                    'question': answer.question.text,
+                    'poll': answer.question.poll.pk,
+                    'question': answer.question.pk,
                     'answer': answer.text
                 }
             )
