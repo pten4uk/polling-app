@@ -40,14 +40,14 @@ python manage.py runserver
  
  ##Документация API
  POST - http://127.0.0.1:8000/api/auth/token/login
-    request
+    - request
     ```json
     {
         "username": "",
         "password": ""
     }
     ```
-    response
+    - response
     ```json
     {
         "auth_token": ""
